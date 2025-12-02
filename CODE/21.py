@@ -1,0 +1,112 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+import requests
+from bs4 import BeautifulSoup
+import time
+import pandas as pd
+import os
+import random
+from urllib.parse import quote
+
+# ------------------- 설정 -------------------
+# 목표 포럼 페이지 URL (WebMD COVID-19 Exchange Forum)
+FORUM_BASE_URL = "https://exchanges.webmd.com/covid-19-exchange/forum"
+MAX_PAGES = 500  # 500 페이지 목표 (데이터 양 확보)
+OUTPUT_FILE = "webmd_covid_posts_cache_final.csv"
+
+# ------------------- Selenium 설정 -------------------
+try:
+    service = Service(ChromeDriverManager().install())
+    # Headless 모드로 조용히 실행
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+except Exception as e:
+    print(f"[ERROR] Selenium 드라이버 초기화 오류: {e}")
+    exit()
+
+result = []
+user_agent_list = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:99.0) Gecko/20100101 Firefox/99.0',
+    'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+]
+
+# ------------------- 1단계: 구글 캐시 URL 획득 및 크롤링 -------------------
+print(f"--- WebMD 포럼 수집 시작 (구글 캐시 우회) ---")
+
+for page in range(1, MAX_PAGES + 1):
+    review_page_url = f"{FORUM_BASE_URL}/page/{page}"
+
+    # 1. 구글 검색: 해당 포럼 페이지의 캐시 URL을 찾습니다.
+    search_query = f"site:exchanges.webmd.com inurl:{review_page_url}"
+    search_url = f"https://www.google.com/search?q={quote(search_query)}"
+
+    try:
+        driver.get(search_url)
+        time.sleep(random.uniform(2, 4))  # 검색 결과 로딩 대기
+
+        # 2. 구글 캐시 링크 추출
+        cache_link_element = driver.find_elements(By.XPATH, "//a[contains(text(), 'Cached') or contains(text(), '캐시')]")
+
+        if not cache_link_element:
+            # 캐시 링크를 찾지 못했거나, 더 이상 검색 결과가 없습니다.
+            # WebMD는 페이지 수가 적을 수 있습니다.
+            print(f"[STOP] {page} 페이지에 대한 캐시 링크를 찾지 못했습니다. 크롤링 종료.")
+            break
+
+        # 가장 첫 번째 캐시 링크 사용
+        cache_url = cache_link_element[0].get_attribute('href')
+
+    except Exception as e:
+        print(f"[ERROR] 구글 검색 중 오류 발생: {e}")
+        time.sleep(5)
+        continue
+
+    # 3. 캐시 URL로 HTTP 요청 (WebMD 서버가 아닌 Google 서버에 요청)
+    try:
+        res = requests.get(cache_url, headers={'User-Agent': random.choice(user_agent_list)}, timeout=10)
+        res.raise_for_status()
+        soup = BeautifulSoup(res.text, "html.parser")
+
+        # 4. 게시글 및 댓글 텍스트 추출 (WebMD 포럼 구조에 맞춤)
+        # WebMD 포럼의 댓글과 본문은 'user-comment' 또는 'post-content' 클래스에 있을 가능성이 높음
+        comments = soup.select("div.user-comment, div.post-content")
+
+        if not comments:
+            # comments = soup.select("p") # 폴백: p 태그에서 추출
+            # if not comments:
+            print(f"[INFO] 캐시 페이지에서 유효 텍스트를 찾지 못했습니다. (URL: {review_page_url})")
+            continue
+
+        for comment in comments:
+            comment_text = comment.get_text(strip=True)
+
+            # 텍스트가 너무 짧거나 노이즈인 경우 필터링
+            if len(comment_text.split()) < 10:
+                continue
+
+            result.append({
+                "source": "WebMD",
+                "text": comment_text,
+                "source_url": review_page_url,
+                "date_info": "Inferred from Cache Date"
+            })
+
+    except requests.exceptions.RequestException as e:
+        print(f"[ERROR] 캐시 요청 중 오류 발생: {e}. 건너뜁니다.")
+        continue
+
+    # 5. 진행 상태 출력 및 지연
+    print(f"[SUCCESS] Page {page} processed. Total collected: {len(result)}")
+    time.sleep(random.uniform(3, 5))  # 다음 구글 검색 요청 전 대기
+
+# ------------------- 6. 최종 저장 -------------------
+driver.quit()
+df = pd.DataFrame(result)
+df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
+
+print(f"\n[INFO] 크롤링 최종 완료. 총 {len(df)}건의 데이터를 수집했습니다.")
+print(f"파일 저장 완료: '{OUTPUT_FILE}'")
