@@ -119,9 +119,6 @@
 - WebMD, HealthBoards, Patient.info, Drugs.com 등 **헬스 포럼·약 리뷰 사이트 데이터**가  
   나머지 약 24.77%를 구성하여, **임상 경험·부작용 후기** 관점을 보완한다.
 
-> 이후 2.2절의 전처리 파이프라인(언어 필터링, 키워드 기반 Relevance 필터,  
-> 링크/정보 공유 위주 문장 제거 등)을 거쳐,  
-> 최종 분석용 데이터셋은 **20,929건(부정 18,024 / 긍정 2,905)**으로 축소된다.
 
 
 ![플랫폼 비율 파이 차트](image/Reddit.png)
@@ -235,6 +232,22 @@ Reddit의 댓글 구조는
 
 ---
 
+### 2.7 원시 댓글 데이터 예시 (Raw Samples)
+
+백신/코로나 관련 댓글이 실제로 어떤 형태인지 보여주기 위해,  
+각 플랫폼에서 가져온 **실제 원시 텍스트 일부**를 예시로 제시한다.
+
+> ⚠️ 개인정보 및 아이디는 모두 제거/마스킹했다.  
+> URL, 계정명, 구체적인 병원/지역 이름 등은 `[...]` 처리했다.
+
+| source        | created_at        | text (원문 일부) |
+|---------------|-------------------|------------------|
+| `Reddit`      | 2021-01-15 13:24  | "I got my second Pfizer shot yesterday and my arm hurts like hell, but honestly it's nothing compared to getting covid. My parents are getting theirs next week..." |
+| `WebMD`       | 2021-03-02 08:11  | "After the Moderna vaccine I had chills and a fever for one night. I was scared because of all the news, but my doctor said it was a normal immune response..." |
+| `HealthBoards`| 2020-11-28 21:03  | "My mom is in the hospital and they're talking about this new vaccine. I'm worried about long term side effects, but also about her catching covid while waiting..." |
+| `Drugs.com`   | 2021-05-07 17:40  | "Vaccine: [brand]. Age: 35. Side effects: sore arm, mild headache, fatigue for 2 days. Would still recommend, it's better than the risks of covid." |
+
+
 
 ## 3. 방법론 요약 (Methods)
 
@@ -270,6 +283,24 @@ Reddit의 댓글 구조는
  → 전처리의 핵심은 **“양을 줄이더라도, 코로나/백신 논쟁에 실제로 해당하는 문장만 남기자”**는 원칙이다.
 
 ---
+
+#### 3.1.X 전처리 단계별 실제 예시
+
+아래는 Reddit에서 가져온 실제 댓글 한 문장이  
+전처리 단계(A→B→C)를 거치며 어떻게 정제되는지 보여주는 예시이다.
+
+| 단계 | 내용 |
+|------|------|
+| Raw 원문 | "Here's the link to the article about covid vaccines: https://[...] Honestly I'm scared of the side effects, but also I don't want my dad to end up in the hospital again." |
+| A. 최소 전처리 | "heres the link to the article about covid vaccines https honestly im scared of the side effects but also i dont want my dad to end up in the hospital again" |
+| B. 특수문자/URL/불용어 제거 | "link article covid vaccines honestly scared side effects dont want dad end hospital" |
+| C. 키워드 기반 관련성 필터 통과 여부 | ✅ `covid`, `vaccines`, `side effects`, `hospital` 포함 → **주제 관련 (True)** 으로 유지 |
+
+> 이처럼 전처리에서는  
+> - **형식적 노이즈 제거(A,B)**와  
+> - **코로나/백신 관련 여부 필터링(C)**  
+> 을 동시에 수행해, “깨끗하면서도 주제에 맞는 텍스트”만 남기도록 했다.
+
 
 ### 3.1.1 전처리 버전 비교 (요약)
 
@@ -338,7 +369,24 @@ True 데이터 10%를 직접 검토한 결과,
 - 이후 성능·안정성을 고려해  
   최종 파이프라인은 **Binary 분류(부정 vs 긍정)**에 집중
 
-### 3.2.1 감성 분석 모델 (Sentiment Classification)
+#### 3.2.X 수동 라벨 예시 (실제 문장 5개, Binary)
+
+아래는 사람이 직접 라벨링한 댓글 예시 5개이다.  
+(텍스트는 개인정보·URL 등을 일부 마스킹했다.)
+
+| id  | text (일부) | Binary 라벨 |
+|-----|-------------|-------------|
+| ex1 | "The vaccine saved my parents. They both caught covid before and this time it was just like a mild cold." | 1 (긍정) |
+| ex2 | "I'm not anti-vax but the mandate at my job is ridiculous. People are getting fired over this." | 0 (부정) |
+| ex3 | "Had fever and chills for one night after Moderna, totally worth it if it keeps me out of ICU." | 1 (긍정) |
+| ex4 | "My friend developed heart issues after the shot, doctors keep saying it's unrelated but I'm not convinced." | 0 (부정) |
+| ex5 | "Got the vaccine yesterday." → 감정이 거의 드러나지 않아 최종 라벨링 세트에서는 제외 | (라벨링 제외) |
+
+> 이 표는 **라벨 기준이 실제로 어떻게 적용되었는지**를 보여주기 위한 예시이며,  
+> 감정이 거의 드러나지 않는 문장이나 애매한 문장은 과감히 **“라벨링 제외”**로 처리해 노이즈를 줄였다.
+
+
+### 3.2.2 감성 분석 모델 (Sentiment Classification)
 
 **모델 후보**
 
@@ -353,7 +401,7 @@ True 데이터 10%를 직접 검토한 결과,
 - **손실 함수:** CrossEntropy + 클래스 불균형 대응 (class weight 등)  
 - **결과:** Validation Accuracy ≈ **0.86 ~ 0.87**
 
-  #### 3.2.2 최종 학습 스냅샷 
+  #### 3.2.3 최종 학습 스냅샷 
 
 Epoch별 대표 로그는 다음과 같다.
 
@@ -433,6 +481,28 @@ BERTopic으로 뽑은 **대표 토픽 축(요약)**은 다음과 같다.
 - **음모론 프레이밍**이 모두 뒤섞여 **부정 여론을 형성**하고 있다.
 
 ---
+
+#### 4.2.1 토픽별 실제 문장 예시
+
+각 토픽이 어떤 식의 문장으로 구성되는지 보여주기 위해,  
+토픽별 실제 댓글 예시를 일부 제시한다. (익명/마스킹 처리)
+
+**[토픽: 의료비·의료 시스템 불만]**
+
+> "I avoided going to the hospital when I had covid symptoms because I simply can't afford another bill. The vaccine side effects scare me less than the debt."
+
+**[토픽: 마스크·백신 의무화 갈등]**
+
+> "My store is still forcing masks even after the mandate ended. Customers yell at us, management doesn't care, it's a nightmare."
+
+**[토픽: 음모론·hoax 프레이밍]**
+
+> "Covid is just a hoax to control people, the so-called vaccine is part of the same propaganda machine."
+
+**[토픽: mRNA 백신 옹호·효과]**
+
+> "mRNA vaccines are one of the best things modern medicine has done. My whole family got vaccinated and no one ended up in the hospital this time."
+
 
 ### 4.3 긍정 토픽 요약
 
