@@ -113,7 +113,9 @@
 | 기타(국내 커뮤니티, 실험적 수집) | `N_Others`      | `P_Others %` | 최종 분석에는 일부만 사용/또는 제외 |
 
 > README 상에서는 위 표와 함께  
-> `source_distribution.png`와 같은 **플랫폼 비율 파이 차트/막대 그래프**를 함께 제시했다.
+> `source_distribution.png`와 같은 **플랫폼 비율 파이 차트**를 함께 제시했다.
+
+![플랫폼 비율 파이 차트](image/Reddit.png)
 
 ---
 
