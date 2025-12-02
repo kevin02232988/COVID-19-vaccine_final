@@ -228,25 +228,7 @@ Reddit는 **게시글–상위 댓글–대댓글** 구조를 가지는 대표�
 
 ---
 
-#### 3.1.1 전처리 단계별 실제 예시
-
-아래는 Reddit에서 가져온 실제 댓글 한 문장이  
-전처리 단계(A→B→C)를 거치며 어떻게 정제되는지 보여주는 예시이다.
-
-| 단계 | 내용 |
-|------|------|
-| Raw 원문 | "Here's the link to the article about covid vaccines: https://[...] Honestly I'm scared of the side effects, but also I don't want my dad to end up in the hospital again." |
-| A. 최소 전처리 | "heres the link to the article about covid vaccines https honestly im scared of the side effects but also i dont want my dad to end up in the hospital again" |
-| B. 특수문자/URL/불용어 제거 | "link article covid vaccines honestly scared side effects dont want dad end hospital" |
-| C. 키워드 기반 관련성 필터 통과 여부 | ✅ `covid`, `vaccines`, `side effects`, `hospital` 포함 → **주제 관련 (True)** 으로 유지 |
-
-> 이처럼 전처리에서는  
-> - **형식적 노이즈 제거(A,B)**와  
-> - **코로나/백신 관련 여부 필터링(C)**  
-> 을 동시에 수행해, “깨끗하면서도 주제에 맞는 텍스트”만 남기도록 했다.
-
-
-### 3.1.2 전처리 버전 비교 (요약)
+### 3.1.1 전처리 버전 비교
 
 실제 구현 과정에서는 아래와 같이 여러 버전을 거쳐 강화되었다.
 
@@ -277,13 +259,36 @@ Reddit는 **게시글–상위 댓글–대댓글** 구조를 가지는 대표�
 True 데이터 10%를 직접 검토한 결과,
 
 - 대부분 실제로 코로나/백신 논의
-- 단, 링크 공유·정보 전달 위주로 감정이 거의 없는 문장은 추가로 삭제
+- 단, 링크 공유·정보 전달 위주로 감정이 거의 없는 문장은 추가로 삭제하고,
+  약 **1,010개 행 삭제** → `FINAL_DATA_ROWS_DELETED.csv` 저장  
+- 이 중 다시 읽어보니 쓸 만한 데이터 **423개는 복구** →  
+  `FINAL_DATA_ROWS_DELETED_2.csv` (약 23,352건) 생성  
+ 
 
 → 최종 파이프라인은 이 **버전 C**를 기반으로 구축되었으며,  
 전처리의 목적은 **“텍스트를 깨끗하게 만드는 것 + 주제와 무관한 문장을 제거하는 것”**  
 두 축을 동시에 만족하는 것이었다.
 
 ---
+
+#### 3.1.2 전처리 단계별 실제 예시
+
+아래는 Reddit에서 가져온 실제 댓글 한 문장이  
+전처리 단계(A→B→C)를 거치며 어떻게 정제되는지 보여주는 예시이다.
+
+| 단계 | 내용 |
+|------|------|
+| Raw 원문 | "Here's the link to the article about covid vaccines: https://[...] Honestly I'm scared of the side effects, but also I don't want my dad to end up in the hospital again." |
+| A. 최소 전처리 | "heres the link to the article about covid vaccines https honestly im scared of the side effects but also i dont want my dad to end up in the hospital again" |
+| B. 특수문자/URL/불용어 제거 | "link article covid vaccines honestly scared side effects dont want dad end hospital" |
+| C. 키워드 기반 관련성 필터 통과 여부 | ✅ `covid`, `vaccines`, `side effects`, `hospital` 포함 → **주제 관련 (True)** 으로 유지 |
+
+> 이처럼 전처리에서는  
+> - **형식적 노이즈 제거(A,B)**와  
+> - **코로나/백신 관련 여부 필터링(C)**  
+> 을 동시에 수행해, “깨끗하면서도 주제에 맞는 텍스트”만 남기도록 했다.
+
+
 
 ### 3.1.3 전처리 단계별 데이터 수 변화
 
@@ -306,7 +311,7 @@ True 데이터 10%를 직접 검토한 결과,
 
 ### 3.2 수동 라벨링 데이터
 
-- 전체 데이터 중 **약 10% (2,200~2,300개)**를 무작위로 샘플링
+- 전체 데이터 중 **약 10% (2,100~2,200개)**를 무작위로 샘플링
 - 사람(연구자)이 직접 **두 가지 라벨**을 동시에 부여
   - Binary: `0 = 부정`, `1 = 긍정`
   - Three-Class: `0 = 부정`, `1 = 중립`, `2 = 긍정`
@@ -505,6 +510,9 @@ BERTopic으로 뽑은 **대표 토픽 축(요약)**은 다음과 같다.
    - 어떤 데이터와 전문가 의견을 바탕으로 결정했는지
 
 ---
+
+
+![시계열에 따른 부정 비율](image/A.png)
 
 ### 5.2 의료 정책·의료기관 관점
 
