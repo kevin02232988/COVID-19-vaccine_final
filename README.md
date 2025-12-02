@@ -239,8 +239,8 @@ Reddit의 댓글 구조는
 |----------------|-------------------|------------------|------------------|
 | `Reddit`       | 2021-01-15 13:24  | "I got my second Pfizer shot yesterday and my arm hurts like hell, but honestly it's nothing compared to getting covid. My parents are getting theirs next week..." | [원문 보기](https://www.reddit.com/r/Coronavirus/comments/) |
 | `WebMD`        | 2021-03-02 08:11  | "After the Moderna vaccine I had chills and a fever for one night. I was scared because of all the news, but my doctor said it was a normal immune response..." | [원문 보기](https://www.webmd.com/vaccines/covid-19-vaccine/user-reviews/) |
-| `HealthBoards` | 2020-11-28 21:03  | "My mom is in the hospital and they're talking about this new vaccine. I'm worried about long term side effects, but also about her catching covid while waiting..." | [원문 보기](https://www.healthboards.com/boards/) |
-| `Drugs.com`    | 2021-05-07 17:40  | "Vaccine: [brand]. Age: 35. Side effects: sore arm, mild headache, fatigue for 2 days. Would still recommend, it's better than the risks of covid." | [원문 보기](https://www.drugs.com/comments/) |
+| `HealthBoards` | 2020-11-28 21:03  | "My mom is in the hospital and they're talking about this new vaccine. I'm worried about long term side effects, but also about her catching covid while waiting..." | [원문 보기](https://www.healthboards.com/boards/covid-19-vaccine/) |
+| `Drugs.com`    | 2021-05-07 17:40  | "Vaccine: [brand]. Age: 35. Side effects: sore arm, mild headache, fatigue for 2 days. Would still recommend, it's better than the risks of covid." | [원문 보기](https://www.drugs.com/comments/Coronavirus) |
 
 
 
