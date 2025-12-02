@@ -366,7 +366,7 @@ True 데이터 10%를 직접 검토한 결과,
 - 이후 성능·안정성을 고려해  
   최종 파이프라인은 **Binary 분류(부정 vs 긍정)**에 집중
 
-#### 3.2.X 수동 라벨 예시 (실제 문장 5개, Binary)
+#### 3.2.1 수동 라벨 예시 (실제 문장 4개, Binary)
 
 아래는 사람이 직접 라벨링한 댓글 예시 5개이다.  
 (텍스트는 개인정보·URL 등을 일부 마스킹했다.)
@@ -377,10 +377,6 @@ True 데이터 10%를 직접 검토한 결과,
 | ex2 | "I'm not anti-vax but the mandate at my job is ridiculous. People are getting fired over this." | 0 (부정) |
 | ex3 | "Had fever and chills for one night after Moderna, totally worth it if it keeps me out of ICU." | 1 (긍정) |
 | ex4 | "My friend developed heart issues after the shot, doctors keep saying it's unrelated but I'm not convinced." | 0 (부정) |
-| ex5 | "Got the vaccine yesterday." → 감정이 거의 드러나지 않아 최종 라벨링 세트에서는 제외 | (라벨링 제외) |
-
-> 이 표는 **라벨 기준이 실제로 어떻게 적용되었는지**를 보여주기 위한 예시이며,  
-> 감정이 거의 드러나지 않는 문장이나 애매한 문장은 과감히 **“라벨링 제외”**로 처리해 노이즈를 줄였다.
 
 
 ### 3.2.2 감성 분석 모델 (Sentiment Classification)
