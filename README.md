@@ -418,7 +418,7 @@ BERTopic으로 뽑은 **대표 토픽 축(요약)**은 다음과 같다.
 | 축 | 대표 내용 (요약) | 예시 키워드 |
 |---|------------------|-------------|
 | **의료비·의료 시스템 불만** | 병원비, 빚, 의료 접근성, 간호 인력 부족 등 | hospitals, debt, pay, healthcare, nurses |
-| **마스크·백신 의무화 갈등** | 상점/직장에서의 마스크 착용 강제, 고객–직원 갈등 | walmart, store, customers, masks, enforce |
+| **마스크·백신 의무화 갈등** | 상점/직장에서의 마스크와 백신 착용 강제, 고객–직원 갈등 | walmart, store, customers, masks, enforce |
 | **정치·책임 공방** | 트럼프, 정부, 누구 책임인가에 대한 논쟁 | trump, president, responsible, politics |
 | **백신 부작용·장기 후유증 걱정** | 접종 후 증상, 사망·장기 코로나에 대한 두려움 | effects, infection, long, died, side |
 | **아동·취약계층 걱정** | 아이 접종, 소아과, 기저질환자 마스크 착용 문제 | kids, children, parents, asthma, breathing |
