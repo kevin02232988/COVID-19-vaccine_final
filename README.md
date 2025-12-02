@@ -172,7 +172,7 @@
 #### 버전 B – 특수문자/URL/불용어 제거
 
 - URL·이모티콘·특수문자 제거 + 일반 불용어 제거
-- `mask`, `vaccine`, `company`, `money`, `hospital` 등  
+- 슬슬 `mask`, `vaccine`, `company`, `money`, `hospital` 등  
   의미 있는 단어가 LDA 토픽에 등장하기 시작
 - 하지만 여전히 코로나/백신과 **직접 관련 없는 잡담**이 다수 포함  
   → **주제 관련성 필터링 단계 추가 필요**
