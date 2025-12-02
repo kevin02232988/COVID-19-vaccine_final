@@ -224,7 +224,7 @@ Epoch별 대표 로그는 다음과 같다.
 | 4     | 0.03       | 0.98      | 0.84    |
 | 5     | 0.02       | 0.99      | 0.87    |
 
-![Epoch 학습 정확도/ 검증 정확도](AA.png)
+![Epoch 학습 정확도/ 검증 정확도](image/AA.png)
 
 - Early Stopping 관점에서 **Epoch 3~5 구간이 최적**으로 판단되었다.
 - 최종적으로 **Validation Accuracy 약 0.87** 수준의 **DeBERTa 모델**을 채택하였다.
