@@ -234,18 +234,15 @@ Reddit의 댓글 구조는
 
 ### 2.7 원시 댓글 데이터 예시 (Raw Samples)
 
-백신/코로나 관련 댓글이 실제로 어떤 형태인지 보여주기 위해,  
-각 플랫폼에서 가져온 **실제 원시 텍스트 일부**를 예시로 제시한다.
 
-> ⚠️ 개인정보 및 아이디는 모두 제거/마스킹했다.  
-> URL, 계정명, 구체적인 병원/지역 이름 등은 `[...]` 처리했다.
+| source         | created_at        | text (원문 일부) | 원문 링크 (URL) |
+|----------------|-------------------|------------------|------------------|
+| `Reddit`       | 2021-01-15 13:24  | "I got my second Pfizer shot yesterday and my arm hurts like hell, but honestly it's nothing compared to getting covid. My parents are getting theirs next week..." | [원문 보기](https://www.reddit.com/r/Coronavirus/comments/) |
+| `WebMD`        | 2021-03-02 08:11  | "After the Moderna vaccine I had chills and a fever for one night. I was scared because of all the news, but my doctor said it was a normal immune response..." | [원문 보기](https://www.webmd.com/vaccines/covid-19-vaccine/user-reviews/) |
+| `HealthBoards` | 2020-11-28 21:03  | "My mom is in the hospital and they're talking about this new vaccine. I'm worried about long term side effects, but also about her catching covid while waiting..." | [원문 보기](https://www.healthboards.com/boards/) |
+| `Drugs.com`    | 2021-05-07 17:40  | "Vaccine: [brand]. Age: 35. Side effects: sore arm, mild headache, fatigue for 2 days. Would still recommend, it's better than the risks of covid." | [원문 보기](https://www.drugs.com/comments/) |
 
-| source        | created_at        | text (원문 일부) |
-|---------------|-------------------|------------------|
-| `Reddit`      | 2021-01-15 13:24  | "I got my second Pfizer shot yesterday and my arm hurts like hell, but honestly it's nothing compared to getting covid. My parents are getting theirs next week..." |
-| `WebMD`       | 2021-03-02 08:11  | "After the Moderna vaccine I had chills and a fever for one night. I was scared because of all the news, but my doctor said it was a normal immune response..." |
-| `HealthBoards`| 2020-11-28 21:03  | "My mom is in the hospital and they're talking about this new vaccine. I'm worried about long term side effects, but also about her catching covid while waiting..." |
-| `Drugs.com`   | 2021-05-07 17:40  | "Vaccine: [brand]. Age: 35. Side effects: sore arm, mild headache, fatigue for 2 days. Would still recommend, it's better than the risks of covid." |
+
 
 
 
