@@ -163,7 +163,7 @@
 
 - KoELECTRA (한국어, 실험용)
 - BERT 계열 (영어, baseline)
-- DeBERTa / DeBERTa v3 (영어, **최종 선택**)
+- DeBERTa v3 (영어, **최종 선택**)
 
 **최종 설정 (요약)**
 
