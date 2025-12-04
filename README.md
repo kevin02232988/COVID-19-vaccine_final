@@ -224,8 +224,6 @@ Reddit는 **게시글–상위 댓글–대댓글** 구조를 가지는 대표�
 
 3. **형식적 노이즈 제거**
    - URL, 특수문자, 이모티콘 등 제거
-   - 불용어(stopwords) 제거  
-     (너무 일반적인 단어 + 전처리 후에도 의미를 흐리는 잔여 단어)
 
 4. **주제 관련성 필터링 (Keyword-based Relevance)**
    - 아래와 같은 코로나/백신 핵심 키워드 중  
@@ -250,22 +248,18 @@ Reddit는 **게시글–상위 댓글–대댓글** 구조를 가지는 대표�
 
 #### 버전 A – 최소 전처리
 
-- 특수문자 제거 + 소문자 변환 정도만 수행
+- 특수문자·이모티콘 제거 + 소문자 변환 정도만 수행
 - LDA 상위 키워드에 `http`, `www`, `com`, `trump`, `biden`, `news` 등  
-  링크/정치인/사이트 이름이 과도하게 등장  
+  링크/정치인/사이트 이름이 과도하게 등장, 여전히 코로나/백신과 **직접 관련 없는 잡담**이 다수 포함  
+  → **주제 관련성 필터링 단계 추가 필요**
   → **“이 정도로는 ‘백신 논란의 구조’를 보기 어렵다”**는 결론
 
-#### 버전 B – 특수문자/URL/불용어 제거
 
-- URL·이모티콘·특수문자 제거 + 일반 불용어 제거
-- 슬슬 `mask`, `vaccine`, `company`, `money`, `hospital` 등 의미 있는 단어가 LDA 토픽에 등장하기 시작
-- 하지만 여전히 코로나/백신과 **직접 관련 없는 잡담**이 다수 포함  
-  → **주제 관련성 필터링 단계 추가 필요**
-
-#### 버전 C – 키워드 기반 주제 관련성 필터링
+#### 버전 B – 키워드 기반 주제 관련성 필터링
 
 - 코로나/백신 이슈에서 실제로 자주 등장하는 키워드 리스트 구축
 - 문장 내에 이 키워드가 **하나도 없으면 “주제 무관(False)”로 제거**
+- 슬슬 `mask`, `vaccine`, `company`, `money`, `hospital` 등 의미 있는 단어가 LDA 토픽에 등장하기 시작
 
 → 최종 파이프라인은 이 **버전 C**를 기반으로 구축되었으며,  
 전처리의 목적은 **“텍스트를 깨끗하게 만드는 것 + 주제와 무관한 문장을 제거하는 것”**  
@@ -295,8 +289,7 @@ True 데이터 10%를 직접 검토한 결과,
 |------|------|
 | Raw 원문 | "Here's the link to the article about covid vaccines: https://[...] Honestly I'm scared of the side effects, but also I don't want my dad to end up in the hospital again." |
 | A. 최소 전처리 | "heres the link to the article about covid vaccines https honestly im scared of the side effects but also i dont want my dad to end up in the hospital again" |
-| B. 특수문자/URL/불용어 제거 | "link article covid vaccines honestly scared side effects dont want dad end hospital" |
-| C. 키워드 기반 관련성 필터 통과 여부 | ✅ `covid`, `vaccines`, `side effects`, `hospital` 포함 → **주제 관련 (True)** 으로 유지 |
+| B. 키워드 기반 관련성 필터 통과 여부 | ✅ `covid`, `vaccines`, `side effects`, `hospital` 포함 → **주제 관련 (True)** 으로 유지 |
 
 > 이처럼 전처리에서는  
 > - **형식적 노이즈 제거(A,B)**와  
