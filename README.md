@@ -31,11 +31,14 @@
 
 마지막으로, 학창 시절 직접 겪은 팬데믹 경험이 있다. 여러 방역 대책과 정책이 충분한 데이터 없이 추진되거나, 현장의 현실과 맞지 않아 사회적 비용과 불신을 키우는 장면을 여러 번 목격했다. 지피지기면 백전불태라는 말처럼, 사람들이 실제로 무엇을 두려워하고 무엇에 분노하며 무엇을 불공정하게 느끼는지에 대한 이해가 부족하면 비슷한 상황이 반복될 수밖에 없다. 온라인 댓글 데이터를 정리하고 분석하는 일은 다음 팬데믹에서 어떤 의사결정과 커뮤니케이션 전략을 선택해야 할지 미리 설계해 보는 작은 출발점이 될 수 있다.
 
-이러한 문제의식은 필자 개인의 경험에서만 나온 것이 아니라, 전문가 집단과 연구자들의 논의와도 맞닿아 있다. 세계보건기구(WHO)는 코로나19 이후 백신과 관련된 허위정보, 과장된 주장, 음모론이 온라인에서 대량으로 유통되는 현상을 infodemic이라고 명명하고, 이것이 백신 신뢰와 접종률에 심각한 위협이 된다고 지속적으로 경고해 왔다 (World Health Organization, 2020, 2021). 이는 “백신 자체의 효과” 뿐 아니라, 백신을 둘러싼 정보 환경과 여론 구조를 함께 분석해야 한다는 점을 분명히 보여 준다.
+이러한 문제의식은 필자 개인의 경험에서만 나온 것이 아니라, 전문가 집단과 연구자들의 논의와도 맞닿아 있다. 세계보건기구(WHO)는 코로나19 이후 백신과 관련된 허위정보·과장된 주장·음모론이 온라인과 오프라인에서 과도하게 퍼지는 현상을 *infodemic*이라고 부르며, 이것이 백신 신뢰와 공중보건 대응을 약화시킨다고 반복해서 경고해 왔다 (World Health Organization, 2020; World Health Organization, 2020b). 이 개념은 단순히 백신의 임상적 효과만이 아니라, **백신을 둘러싼 정보 환경과 여론 구조 자체를 분석해야 한다**는 문제의식을 전제로 한다.
 
-국제적으로는 Reddit, Twitter 등 소셜 미디어에서 백신 관련 텍스트를 수집하여 감성 분석과 토픽 모델링을 수행하는 연구들이 이미 다수 보고되어 있다. 여러 연구에서 대규모 온라인 댓글·게시글을 이용해 COVID-19 백신에 대한 태도, 백신 망설임(hesitancy), 정책 이벤트(접종 시작, 의무화, 중단 조치 등)가 여론에 미치는 영향을 정량적으로 분석하고 있으며, 이 과정에서 “온라인 텍스트 기반 백신 여론 분석”이 공중보건 및 데이터 과학 분야의 하나의 정식 연구 방법론으로 자리 잡아 가고 있다.
+국제적으로도 Reddit·Twitter 등 소셜 미디어의 텍스트를 수집하여 감성 분석과 토픽 모델링으로 COVID-19 백신에 대한 태도와 논쟁 구조를 분석한 연구들이 다수 보고되었다. Melton 등은 여러 개의 Reddit 커뮤니티에서 백신 관련 댓글을 수집해 감성 분석과 LDA 기반 토픽 모델링을 수행하며, 백신에 대한 신뢰와 불신이 어떤 이슈와 함께 나타나는지를 정리하였다 (Melton et al., 2021). Lyu 등과 Yin 등은 수백만 건의 트위터 데이터를 대상으로 백신 관련 토픽과 감성의 시계열 변화를 분석하면서, 정책 이벤트(승인, 접종, 중단 조치 등)가 여론에 미치는 영향을 정량적으로 보여 주었다 (Lyu et al., 2021; Yin et al., 2022).
 
-국내에서도 한국어 트위터와 온라인 게시글을 활용하여 COVID-19 및 백신에 대한 인식과 감정 변화를 시계열로 추적하는 텍스트 마이닝·감성 분석 연구가 점차 축적되고 있다. 이러한 흐름을 종합하면, “온라인 댓글과 게시글을 데이터로 삼아 백신 논란의 구조를 분석한다”는 접근은 더 이상 개인적 호기심 수준이 아니라, 전문가 집단과 연구자들이 공유하는 문제의식 위에서 정당성을 인정받는 연구 방향이라고 볼 수 있다. 본 프로젝트는 이와 같은 선행 연구들의 맥락을 공유하면서, 여러 플랫폼을 통합한 데이터셋과 DeBERTa 기반 감성 분석, BERTopic 토픽 모델링을 결합해 백신 논쟁의 감성과 이슈 구조를 함께 해석하고자 한다.
+한국어 데이터에서도 비슷한 접근이 시도되고 있다. Shim 등은 한국어 트위터에서 “코로나”, “백신” 관련 키워드로 수집한 트윗을 대상으로 텍스트 마이닝과 감성 분석을 수행하여, 백신 관련 감정이 시간에 따라 어떻게 변화하는지 분석하였다 (Shim et al., 2021). Park 등과 Roh 등의 연구 역시 한국어 트윗과 포털 기반 데이터를 활용하여, 백신 종류별·시기별 여론의 차이를 토픽·감정 수준에서 비교하는 시도를 보여준다 (Park et al., 2023; Roh et al., 2024).
+
+따라서 “온라인 댓글과 게시글을 데이터로 삼아 백신 논란의 구조를 분석한다”는 접근은 더 이상 개인적 호기심 수준이 아니라, WHO와 여러 연구자들이 공유하는 문제의식 위에서 정당성을 인정받고 있는 연구 방향이다. 본 프로젝트는 이러한 선행 연구들의 흐름을 공유하면서, Reddit과 헬스 포럼, 약 리뷰 사이트 등 여러 플랫폼을 통합한 데이터셋을 구축하고 DeBERTa 기반 감성 분석과 BERTopic 토픽 모델링을 결합해, 백신 논쟁의 감성과 이슈 구조를 함께 해석하고자 한다.
+
 
 이 연구는 결국 “백신이 위험한가 안전한가”라는 이분법적인 질문 대신, “사람들은 정확히 어떤 이유 때문에 불안해하고 분노하며 정책을 불신하게 되었는가”를 알고자 하는 시도라고 할 수 있다.
 
@@ -313,7 +316,7 @@ data/
 
 ---
 
-## 9. 부록 (Appendix – 시행착오와 중간 실험)
+## 9. 부록 (Appendix – 시행착오와 중간 실험과 참고 문헌)
 
 본문에서는 전체적인 스토리 흐름과 최종 파이프라인에 집중하였다. 이 부록에서는 그 과정에서 거쳤던 시행착오와 중간 실험 결과를 간단히 정리한다. 코드나 수식보다, 어떤 선택을 했고 무엇을 버렸는지를 기록해 두는 데 목적이 있다.
 
@@ -392,5 +395,23 @@ Epoch별 정확도와 손실의 변화를 시각화한 그래프는 다음과 �
    “어떤 이슈가 부정 여론을 끌어올렸는지”를 시계열과 함께 분석하였다.
 
 이 네 가지 작업이 합쳐져, 코로나 백신을 둘러싼 온라인 논쟁이 시간이 지나면서 어떤 방향으로 이동했는지를 데이터 기반으로 정리하는 것이 이 프로젝트의 핵심이었다.
+
+## 참고 문헌 (서론에서 인용한 주요 연구 예시)
+
+- World Health Organization. (2020). *Managing the COVID-19 infodemic: Promoting healthy behaviours and mitigating the harm from misinformation and disinformation.*  
+- World Health Organization. (2020b). *Infodemic.* WHO Health Topics 페이지.
+
+- Melton, C. A., Olusanya, O. A., Ammar, N., & Shaban-Nejad, A. (2021). Public sentiment analysis and topic modeling regarding COVID-19 vaccines on the Reddit social media platform: A call to action for strengthening vaccine confidence. *Journal of Infection and Public Health, 14*(10), 1505–1512.
+
+- Lyu, J. C., Han, E. L., & Luli, G. K. (2021). COVID-19 vaccine–related discussion on Twitter: Topic modeling and sentiment analysis. *Journal of Medical Internet Research, 23*(6), e24435.
+
+- Yin, H., et al. (2022). Sentiment analysis and topic modeling for COVID-19 vaccine discussions on Twitter. *World Wide Web, 25*, 1445–1473.
+
+- Shim, J. G., Ryu, K. H., Lee, S. H., Cho, E. A., Lee, Y. J., & Ahn, J. H. (2021). Text mining approaches to analyze public sentiment changes regarding COVID-19 vaccines on social media in Korea. *International Journal of Environmental Research and Public Health, 18*(12), 6549.
+
+- Park, S., et al. (2023). A comprehensive analysis of COVID-19 vaccine–related tweets in Korea. *Journal of Medical Internet Research, 25*, e42623.
+
+- Roh, G. H., et al. (2024). SNSMiner_VAC: Analyzing vaccination based on social media data. *Expert Systems with Applications* (online first).
+
 
 
