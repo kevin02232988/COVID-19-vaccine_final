@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=soft&color=auto&height=160&section=header&text=vaccine%20Review💉&fontSize=50)
+![header](https://capsule-render.vercel.app/api?type=soft&color=auto&height=150&section=header&text=COVID-19%20Vaccine%20Sentiment%20Analysis💉&fontSize=40&animation=fadeIn)
 
 # 🦠 COVID Vaccine Controversy Analysis by BERT/DeBERTa
 **온라인 댓글 기반 코로나 백신 여론 분석 프로젝트**
