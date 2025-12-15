@@ -205,8 +205,7 @@ KEYWORDS = [
 
 &nbsp;&nbsp; 긍정 문장 2,900여 건을 대상으로 같은 방법을 적용하면, mRNA 백신의 효과를 옹호하는 토픽, 팔 통증과 발열 같은 경미한 부작용을 공유하면서도 접종을 긍정적으로 평가하는 토픽, 의료진과 병원 시스템의 노력을 인정하는 토픽, 마스크와 규정 준수를 타인 보호의 관점에서 바라보는 토픽 등이 나타난다.
 
-&nbsp;&nbsp; 주목할 점은 같은 "병원(Hospital)"이나 "마스크(Mask)"라는 키워드라도, 맥락에 따라 전혀 다른 감성으로 분화된다는 점이다. 긍정 여론에서는 이를 '보호와 안전'의 수단으로 인식하는 반면, 부정 여론에서는 '비용 부담'과 '강제적 억압'의 상징으로 인식하는 경향이 뚜렷하게 관찰되었다.
-
+&nbsp;&nbsp; 주목할 점은 같은 "병원(Hospital)"이나 "마스크(Mask)"라는 키워드라도, 맥락에 따라 전혀 다른 감성으로 분화된다는 점이다. 긍정 여론에서는 이를 '보호와 안전'의 수단으로 인식하는 반면, 부정 여론에서는 '비용 부담'과 '강제적 억압'의 상징으로 인식하는 경향이 뚜렷하게 관찰되었다(토픽별 구체적인 댓글 원문 예시는 부록 9.8 참조).
 
 ### 5.3 논란 중심축의 이동: 부작용에서 정책으로
 
@@ -389,6 +388,28 @@ data/
    “어떤 이슈가 부정 여론을 끌어올렸는지”를 시계열과 함께 분석하였다.
 
 &nbsp;&nbsp; 이 네 가지 작업이 합쳐져, 코로나 백신을 둘러싼 온라인 논쟁이 시간이 지나면서 어떤 방향으로 이동했는지를 데이터 기반으로 정리하는 것이 이 프로젝트의 핵심이었다.
+
+---
+
+### 9.8 토픽별 실제 문장 예시 (Representative Sentences by Topic)
+
+&nbsp;&nbsp; 본문 5.2절에서 다룬 토픽 모델링 결과가 실제 데이터에서는 어떤 문장으로 나타나는지 구체적으로 보여주기 위해, 각 토픽을 대표하는 실제 댓글 예시(Raw Text)를 일부 발췌하여 수록한다. 이 예시들은 모델이 분류한 각 토픽의 성격—단순한 의료적 두려움인지, 사회적 분노인지, 혹은 신뢰의 표현인지—을 질적으로 이해하는 데 도움을 준다.
+
+**[토픽: 의료비·의료 시스템 불만 (Medical Cost & System)]**
+> "I avoided going to the hospital when I had covid symptoms because I simply can't afford another bill. The vaccine side effects scare me less than the debt."
+> *(해석: 코로나 증상이 있어도 병원비를 감당할 수 없어 병원에 가지 않았다. 백신 부작용보다 빚(debt)이 더 두렵다는 내용으로, 경제적 부담이 백신/코로나 대응의 장벽임을 보여준다.)*
+
+**[토픽: 마스크·백신 의무화 갈등 (Mandate Conflict)]**
+> "My store is still forcing masks even after the mandate ended. Customers yell at us, management doesn't care, it's a nightmare."
+> *(해석: 의무화가 끝난 후에도 매장에서 마스크 착용을 강제하여 고객과 갈등을 빚고 있다는 내용. 정책이 현장에서 야기하는 피로감과 분노가 드러난다.)*
+
+**[토픽: 음모론·Hoax 프레이밍 (Conspiracy & Hoax)]**
+> "Covid is just a hoax to control people, the so-called vaccine is part of the same propaganda machine."
+> *(해석: 코로나를 통제를 위한 조작(hoax)으로, 백신을 선전 도구(propaganda)로 규정하는 전형적인 음모론적 시각을 보여준다.)*
+
+**[토픽: mRNA 백신 옹호·효과 (Vaccine Efficacy & Support)]**
+> "mRNA vaccines are one of the best things modern medicine has done. My whole family got vaccinated and no one ended up in the hospital this time."
+> *(해석: 가족 중 누구도 입원하지 않았다는 경험을 근거로 mRNA 백신을 현대 의학의 성과로 치켜세우는 긍정/옹호 여론의 예시이다.)*
 
 ## 참고 문헌 (서론에서 인용한 주요 연구 예시)
 
