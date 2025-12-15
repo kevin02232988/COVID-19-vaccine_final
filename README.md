@@ -412,6 +412,8 @@ data/
 
 &nbsp;&nbsp; 또한, 정보 플랫폼과 언론의 역할에 대해서도 기술적 함의를 제공한다. 'Hoax(조작)'나 'Propaganda(선전)'와 같은 키워드가 특정 시점에 급증하며 토픽을 형성하는 현상이 관찰되었다. 이는 플랫폼 차원에서 이러한 음모론적 프레이밍 토픽을 조기에 포착하고, 적절한 사실 정보를 제공하여 개입할 수 있는 상시 모니터링 체계를 기술적으로 구축해야 함을 의미한다.
 
+---
+
 ### 9.9 토픽별 실제 문장 예시 (Representative Sentences by Topic)
 
 &nbsp;&nbsp; 본문 5.2절에서 다룬 토픽 모델링 결과가 실제 데이터에서는 어떤 문장으로 나타나는지 구체적으로 보여주기 위해, 각 토픽을 대표하는 실제 댓글 예시(Raw Text)를 일부 발췌하여 수록한다. 이 예시들은 모델이 분류한 각 토픽의 성격—단순한 의료적 두려움인지, 사회적 분노인지, 혹은 신뢰의 표현인지—을 질적으로 이해하는 데 도움을 준다.
@@ -431,6 +433,8 @@ data/
 **[토픽: mRNA 백신 옹호·효과 (Vaccine Efficacy & Support)]**
 > "mRNA vaccines are one of the best things modern medicine has done. My whole family got vaccinated and no one ended up in the hospital this time."
 > *(해석: 가족 중 누구도 입원하지 않았다는 경험을 근거로 mRNA 백신을 현대 의학의 성과로 치켜세우는 긍정/옹호 여론의 예시이다.)*
+
+---
 
 ## 참고 문헌 (서론에서 인용한 주요 연구 예시)
 
